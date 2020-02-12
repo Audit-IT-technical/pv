@@ -42,12 +42,6 @@ class GeneralpvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            # elif Daterecieved:
-            #     if Daterecieved > today:
-            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            # elif Datereturn:
-            #     if returndate > today:
-            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
                 raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
@@ -87,12 +81,6 @@ class HonpvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose Honorarium in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            # elif Daterecieved:
-            #     if Daterecieved > today:
-            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            # elif Datereturn:
-            #     if returndate > today:
-            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
                 raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
@@ -164,12 +152,6 @@ class UpdatepvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            # elif Daterecieved:
-            #     if Daterecieved > today:
-            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            # elif Datereturn:
-            #     if returndate > today:
-            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
                 raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
@@ -200,12 +182,6 @@ class HunUpdatepvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose Honorarium in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            # elif Daterecieved:
-            #     if Daterecieved > today:
-            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            # elif Datereturn:
-            #     if returndate > today:
-            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
                 raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
@@ -215,9 +191,6 @@ class HunUpdatepvForm(forms.ModelForm):
 
 class standardUpdatepvForm(forms.ModelForm):
 
-    # Gross_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
-    # Withholding_tax = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
-    # Net_amount = forms.DecimalField(max_digits=6, decimal_places=2,required=False,disabled = True)
     class Meta():
         model= models.Pv
         fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
@@ -240,12 +213,6 @@ class standardUpdatepvForm(forms.ModelForm):
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
-            # elif Daterecieved:
-            #     if Daterecieved > today:
-            #         raise forms.ValidationError({'Date_recieved': ["Cannot Use Future Date",]})
-            # elif Datereturn:
-            #     if returndate > today:
-            #         raise forms.ValidationError({'Date_returned': ["Cannot Use Future Date",]})
             elif status != "Returned" and returndate:
                 raise forms.ValidationError({'Date_returned': ["Please remove date returned",]})
             elif tochest > 0.00 and not remarks:
