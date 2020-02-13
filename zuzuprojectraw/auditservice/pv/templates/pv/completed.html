@@ -82,9 +82,9 @@
                           </td>
                           <td>
                             {% if pv.Type_of_pv == 'General' %}
-                              <a class="btn btn-xs btn-sm accent-white" href="{% url 'pv:pvupdate' pk=pv.IA_System_Code  %} " style="background-color:green; color:white;">Update</a>
+                              <a class="btn btn-xs btn-sm accent-white" href="{% url 'pv:pvupdate' pk=pv.IA_System_Code  %} " style="background-color:#12b056; color:white;">Update</a>
                             {% else %}
-                              <a class="btn btn-xs btn-sm accent-white" href="{% url 'pv:hunupdate' pk=pv.IA_System_Code  %} " style="background-color:green; color:white;">Update</a>
+                              <a class="btn btn-xs btn-sm accent-white" href="{% url 'pv:hunupdate' pk=pv.IA_System_Code  %} " style="background-color:#12b056; color:white;">Update</a>
                             {% endif %}
                           </td>
                           {% endif %}
