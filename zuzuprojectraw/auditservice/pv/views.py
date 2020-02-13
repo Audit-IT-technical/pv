@@ -486,14 +486,3 @@ class ReportView(ListView):
        else:
            result = None
        return result
-
-
-# class staffbenefit(LoginRequiredMixin,ListView):
-#     template_name = 'pv/beneficiary.html' # template name the view will control
-#     context_object_name ='pvs'  # context name used on the template
-#     model = models.staff # model been used
-#     paginate_by = 5 # no of items u want to show on each page of the template
-#     today = datetime.datetime.now()#todays date saved in a variable called today
-#     benefit =staff.objects.filter(Pv_reference__Date_recieved__gte=FROMDATE, Pv_reference__Date_recieved__lte=TODATE).values('staff_id').aggregate(Sum('amount'))
-    # Withholding_tax__gt =0.00,Date_recieved__year=today.year
-    # queryset = benefit.filter(Date_recieved__year=today.year).order_by('-IA_System_Code') # query to filter the total Cancelled pv for the yr

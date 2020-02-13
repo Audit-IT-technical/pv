@@ -24,7 +24,7 @@ urlpatterns = [
         path('pv/returnedmonth/', views.Total_returned_PV.as_view(), name ='monthlyreturnedpv'),
         path('pv/cancelledmonth/', views.Total_cancelled_PV.as_view(), name ='monthlycancelledpv'),
         path('pv/withoding/', views.Total_withholding_PV.as_view(), name ='withholding'),
-        # path('pv/beneficiaries/list/', views.staffbenefit.as_view(), name ='benefitlist'),
+
         path('pv/nonwithoding/', views.Nonwitholding.as_view(), name ='nonwithholding'),
         path('pv/accountableimpress/',views.accountableimpress.as_view(), name ='accimpress'),
         path('pv/nonaccountableimpress/',views.nonaccountableimpress.as_view(), name ='nonaccimpress'),
