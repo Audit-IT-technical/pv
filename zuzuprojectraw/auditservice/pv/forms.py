@@ -12,22 +12,6 @@ class DateInput(forms.DateInput):
 
 class GeneralpvForm(forms.ModelForm):
 
-    class Meta():
-        model= models.Pv
-        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
-
-        widgets ={
-                 'Date_recieved' : DateInput() ,
-                 'Date_returned' : DateInput(),
-
-        }
-        labels  = {
-        'returned_to_chest':'Return To Chest (0.00 if not applicable)',
-        'Withholding_tax':' Tax (0.00 if not applicable)',
-        'Type_of_pv':' Type of Pv (Please remember to chose only General)',
-        }
-
-
     def clean(self,*args, **kwargs):
         today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
@@ -48,25 +32,27 @@ class GeneralpvForm(forms.ModelForm):
                 raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(GeneralpvForm, self).clean(*args, **kwargs)
 
-
-
-
-
-class HonpvForm(forms.ModelForm):
-
     class Meta():
         model= models.Pv
-        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
+        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
+
         widgets ={
-                 'Date_recieved' : DateInput(),
+                 'Date_recieved' : DateInput() ,
                  'Date_returned' : DateInput(),
 
         }
         labels  = {
         'returned_to_chest':'Return To Chest (0.00 if not applicable)',
         'Withholding_tax':' Tax (0.00 if not applicable)',
-        'Type_of_pv':' Type of Pv (Please remember to chose only Honurarium)',
+        'Type_of_pv':' Type of Pv (Please remember to chose only General)',
         }
+
+
+
+
+
+class HonpvForm(forms.ModelForm):
+
     def clean(self,*args, **kwargs):
         today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
@@ -87,11 +73,37 @@ class HonpvForm(forms.ModelForm):
                 raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(HonpvForm, self).clean(*args, **kwargs)
 
+    class Meta():
+        model= models.Pv
+        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
+        widgets ={
+                 'Date_recieved' : DateInput(),
+                 'Date_returned' : DateInput(),
+
+        }
+        labels  = {
+        'returned_to_chest':'Return To Chest (0.00 if not applicable)',
+        'Withholding_tax':' Tax (0.00 if not applicable)',
+        'Type_of_pv':' Type of Pv (Please remember to chose only Honurarium)',
+        }
+
+
+
 
 
 
 
 class BenefitForm(forms.ModelForm):
+
+    def clean(self,*args, **kwargs):
+        staffid = self.cleaned_data.get('staff_id')
+        refrence = self.cleaned_data.get('Pv_reference')
+        if refrence and staffid:
+
+            if staff.objects.filter(Pv_reference=refrence, staff_id=staffid).exists():
+                raise forms.ValidationError({'staff_id': ["This Staff Is Already A Beneficiary To This Pv",]})
+
+        return super(BenefitForm, self).clean(*args, **kwargs)
 
     class Meta():
         model = models.staff
@@ -100,14 +112,7 @@ class BenefitForm(forms.ModelForm):
                  'Date_added' : DateInput() ,
 
         }
-    def clean(self,*args, **kwargs):
-        staffid = self.cleaned_data.get('staff_id')
-        refrence = self.cleaned_data.get('Pv_reference')
-        if refrence and staffid:
 
-            if staff.objects.filter(Pv_reference=refrence, staff_id=staffid).exists():
-                raise forms.ValidationError('This Staff Is Already A Beneficiary To This Pv')
-        return super(BenefitForm, self).clean(*args, **kwargs)
 
 
 class UpdateBenefitForm(forms.ModelForm):
@@ -131,13 +136,7 @@ class UpdateBenefitForm(forms.ModelForm):
 
 
 class UpdatepvForm(forms.ModelForm):
-    class Meta():
-        model= models.Pv
-        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
-        widgets ={
-                     'Date_returned': DateInput(),
-                     'Date_recieved': DateInput() ,
-            }
+
     def clean(self,*args, **kwargs):
         today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
@@ -158,16 +157,17 @@ class UpdatepvForm(forms.ModelForm):
                 raise forms.ValidationError({'Remarks': ["Please enter remarks",]})
         return super(UpdatepvForm, self).clean(*args, **kwargs)
 
-class HunUpdatepvForm(forms.ModelForm):
-
-
     class Meta():
         model= models.Pv
-        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
+        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
         widgets ={
                      'Date_returned': DateInput(),
                      'Date_recieved': DateInput() ,
             }
+
+
+class HunUpdatepvForm(forms.ModelForm):
+
     def clean(self,*args, **kwargs):
         today = date.today()
         pvtype = self.cleaned_data.get('Type_of_pv')
@@ -189,15 +189,16 @@ class HunUpdatepvForm(forms.ModelForm):
         return super(HunUpdatepvForm, self).clean(*args, **kwargs)
 
 
-class standardUpdatepvForm(forms.ModelForm):
-
     class Meta():
         model= models.Pv
-        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
+        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
         widgets ={
                      'Date_returned': DateInput(),
                      'Date_recieved': DateInput() ,
             }
+
+
+class standardUpdatepvForm(forms.ModelForm):
 
     def clean(self,*args, **kwargs):
         today = date.today()
@@ -220,8 +221,13 @@ class standardUpdatepvForm(forms.ModelForm):
         return super(standardUpdatepvForm, self).clean(*args, **kwargs)
 
 
-
-
+    class Meta():
+        model= models.Pv
+        fields =('Type_of_accounts','IA_code','Date_recieved','Pv_reference','Source_of_Funding','Cost_center','Type_of_pv','Payee','Description','Account_code','Gross_amount','Withholding_tax','Net_amount','Status','Acc_Impress','Date_returned','returned_to_chest','Remarks')
+        widgets ={
+                     'Date_returned': DateInput(),
+                     'Date_recieved': DateInput() ,
+            }
 
 
 
@@ -235,7 +241,6 @@ class UserLoginForm(forms.Form):
 
         if username and password:
             user = authenticate(username=username, password=password)
-            # type_obj = user_type.objects.get(user = user)
             if not user:
                 raise forms.ValidationError('Username or Password incorrect')
             if not user.check_password(password):
