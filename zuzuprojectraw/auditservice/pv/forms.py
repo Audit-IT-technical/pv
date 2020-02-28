@@ -24,7 +24,6 @@ class GeneralpvForm(forms.ModelForm):
         if pvtype:
             if pvtype != "General":
                 raise forms.ValidationError({'Type_of_pv': ["Please Chose General in the Type of Pv",]})
-
             elif status == "Returned" and not returndate:
                 raise forms.ValidationError({'Date_returned': ["Please Enter Date Retured To Accounts",]})
             elif status != "Returned" and returndate:
